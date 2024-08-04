@@ -27,7 +27,7 @@ public class PushPlus {
         this.token = token;
     }
 
-    public void send(String message) throws Exception {
+    public boolean send(String message) throws Exception {
         URL url = new URL(host);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
@@ -57,5 +57,6 @@ public class PushPlus {
         connection.disconnect();
         PushPlusResponseDTO response = JSON.parseObject(content.toString(), PushPlusResponseDTO.class);
         logger.info(JSON.toJSONString(response));
+        return response.getCode()==200;
     }
 }
