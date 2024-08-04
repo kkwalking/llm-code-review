@@ -1,5 +1,6 @@
 package top.kelton.llm.component.git;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.slf4j.Logger;
@@ -23,13 +24,40 @@ public class GitCommand {
 
     private final String author;
 
+    private final String commitMessage;
 
-    public GitCommand(String githubReviewLogUri, String githubToken, String project, String branch, String author) {
+
+    public GitCommand(String githubReviewLogUri, String githubToken, String project, String branch, String author, String commitMessage) {
         this.githubReviewLogUri = githubReviewLogUri;
         this.githubToken = githubToken;
         this.project = project;
         this.branch = branch;
         this.author = author;
+        this.commitMessage = commitMessage;
+    }
+
+    public String getGithubReviewLogUri() {
+        return githubReviewLogUri;
+    }
+
+    public String getGithubToken() {
+        return githubToken;
+    }
+
+    public String getProject() {
+        return project;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getCommitMessage() {
+        return commitMessage;
     }
 
     /**
@@ -78,14 +106,16 @@ public class GitCommand {
                 .setCredentialsProvider(new UsernamePasswordCredentialsProvider(githubToken, ""))
                 .call();
 
+
+        Date now = new Date();
         // 创建分支
-        String dateFolderName = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String dateFolderName = new SimpleDateFormat("yyyy-MM-dd").format(now);
         File dateFolder = new File("repo/" + dateFolderName);
         if (!dateFolder.exists()) {
             dateFolder.mkdirs();
         }
-
-        String fileName = project + "-" + branch + "-" + author + System.currentTimeMillis() + "-" + RandomStringUtils.randomNumeric(4) + ".md";
+        String createTime = new SimpleDateFormat("HHmmssSSS").format(now);
+        String fileName = project + "-" + branch + "-" + author +"-" + createTime + "-" + ".md";
         File newFile = new File(dateFolder, fileName);
         try (FileWriter writer = new FileWriter(newFile)) {
             writer.write(recommend);

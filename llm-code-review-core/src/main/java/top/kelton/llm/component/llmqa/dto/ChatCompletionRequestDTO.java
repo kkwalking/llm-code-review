@@ -1,7 +1,7 @@
 package top.kelton.llm.component.llmqa.dto;
 
 
-import top.kelton.llm.model.Model;
+import top.kelton.llm.component.llmqa.model.Model;
 
 import java.util.List;
 

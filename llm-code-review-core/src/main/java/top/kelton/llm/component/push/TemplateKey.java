@@ -5,7 +5,7 @@ public enum TemplateKey {
     BRANCH_NAME("branch_name", "分支名称"),
     COMMIT_AUTHOR("commit_author", "提交者"),
     COMMIT_MESSAGE("commit_message", "提交信息"),
-    REVIEW_CONTENT("review_content", "评审内容"),
+    REVIEW_CONTENT("review_log_url", "评审日志地址"),
     ;
 
     private String code;

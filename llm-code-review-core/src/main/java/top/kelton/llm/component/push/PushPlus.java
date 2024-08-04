@@ -14,11 +14,13 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
-public class PushPlus {
+public class PushPlus implements IPushExecutor {
 
     private static final Logger logger = Logger.getLogger(PushPlus.class.getName());
 
-    /** http://www.pushplus.plus/send */
+    /**
+     * http://www.pushplus.plus/send
+     */
     private String host = "http://www.pushplus.plus/send";
     private String token;
 
@@ -27,7 +29,14 @@ public class PushPlus {
         this.token = token;
     }
 
+
+    @Override
     public boolean send(String message) throws Exception {
+        return send(message, PushTemplate.TXT);
+    }
+
+    @Override
+    public boolean send(String message, PushTemplate template) throws Exception {
         URL url = new URL(host);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
@@ -38,8 +47,8 @@ public class PushPlus {
         PushPlusRequestDTO request = new PushPlusRequestDTO();
         request.setToken(token);
         request.setTitle("大模型自动代码评审");
+        request.setTemplate(template.getCode());
         request.setContent(message);
-        request.setTemplate("json");
 
         try (OutputStream os = connection.getOutputStream()) {
             byte[] input = JSON.toJSONString(request).getBytes(StandardCharsets.UTF_8);
@@ -57,6 +66,6 @@ public class PushPlus {
         connection.disconnect();
         PushPlusResponseDTO response = JSON.parseObject(content.toString(), PushPlusResponseDTO.class);
         logger.info(JSON.toJSONString(response));
-        return response.getCode()==200;
+        return response.getCode() == 200;
     }
 }

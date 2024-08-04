@@ -97,7 +97,7 @@ public class ApiTest {
                 "    }\n" +
                 "}\n" +
                 "```\n";
-        GitCommand gitCommand = new GitCommand(repoUrl, token, project, branch, author);
+        GitCommand gitCommand = new GitCommand(repoUrl, token, project, branch, author, "新增用户接口");
         String distUrl = gitCommand.commitAndPush(message);
         System.out.println("评审地址: "+distUrl);
 

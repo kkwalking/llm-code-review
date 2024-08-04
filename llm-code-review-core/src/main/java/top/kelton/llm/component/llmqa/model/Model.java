@@ -1,4 +1,4 @@
-package top.kelton.llm.model;
+package top.kelton.llm.component.llmqa.model;
 
 public enum Model {
 
