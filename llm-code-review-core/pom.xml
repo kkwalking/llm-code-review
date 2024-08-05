@@ -11,12 +11,13 @@
 
     <artifactId>llm-code-review-core</artifactId>
 
+    <packaging>jar</packaging>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <retrofit2.version>2.9.0</retrofit2.version>
         <slf4j.version>2.0.6</slf4j.version>
     </properties>
@@ -109,19 +110,19 @@
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
-            <!--<plugin>-->
-            <!--    <groupId>org.apache.maven.plugins</groupId>-->
-            <!--    <artifactId>maven-jar-plugin</artifactId>-->
-            <!--    <version>3.2.0</version>-->
-            <!--    <configuration>-->
-            <!--        <archive>-->
-            <!--            <manifest>-->
-            <!--                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>-->
-            <!--                <mainClass>top.kelton.llm.CodeReviewApplication</mainClass>-->
-            <!--            </manifest>-->
-            <!--        </archive>-->
-            <!--    </configuration>-->
-            <!--</plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <mainClass>top.kelton.llm.CodeReviewApplication</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -135,23 +136,19 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <transformers>
-                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer" />
-                        <mainClass>top.kelton.llm.CodeReviewApplication</mainClass>
-                    </transformers>
-                    <!--<artifactSet>-->
-                    <!--    <includes>-->
-                    <!--        <include>com.google.guava:guava:jar:</include>-->
-                    <!--        <include>com.alibaba.fastjson2:fastjson2:jar:</include>-->
-                    <!--        <include>org.slf4j:slf4j-api:jar:</include>-->
-                    <!--        <include>org.slf4j:slf4j-simple:jar:</include>-->
-                    <!--        <include>com.auth0:java-jwt:jar:</include>-->
-                    <!--        <include>com.fasterxml.jackson.core:jackson-core:</include>-->
-                    <!--        <include>com.fasterxml.jackson.core:jackson-databind:</include>-->
-                    <!--        <include>com.fasterxml.jackson.core:jackson-annotations:</include>-->
-                    <!--        <include>org.eclipse.jgit:org.eclipse.jgit:</include>-->
-                    <!--    </includes>-->
-                    <!--</artifactSet>-->
+                    <artifactSet>
+                        <includes>
+                            <include>com.google.guava:guava:jar:</include>
+                            <include>com.alibaba.fastjson2:fastjson2:jar:</include>
+                            <include>org.slf4j:slf4j-api:jar:</include>
+                            <include>org.slf4j:slf4j-simple:jar:</include>
+                            <include>com.auth0:java-jwt:jar:</include>
+                            <include>com.fasterxml.jackson.core:jackson-core:</include>
+                            <include>com.fasterxml.jackson.core:jackson-databind:</include>
+                            <include>com.fasterxml.jackson.core:jackson-annotations:</include>
+                            <include>org.eclipse.jgit:org.eclipse.jgit:</include>
+                        </includes>
+                    </artifactSet>
                 </configuration>
             </plugin>
         </plugins>
