@@ -14,19 +14,23 @@ public class CodeReviewApplication {
 
     // ChatGLM 配置
     private String chatglm_apiHost = "https://open.bigmodel.cn/api/paas/v4/chat/completions";
-    private String chatglm_apiKeySecret = "****.***";
+    private String chatglm_apiKeySecret;
 
     // pushplus 配置
-    private String pushplus_token = "*****";
+    private String pushplus_token;
 
     // Github 配置
-    private String github_review_log_uri = "https://github.com/kkwalking/llm-code-review-log";
-    private String github_token = "****";
+    private String github_review_log_uri;
+    private String github_token;
 
     // 工程配置 - 自动获取
-    private String github_project = "llm-code-review";
-    private String github_branch = "master";
-    private String github_author = "kkwalking";
+    private String github_project;
+    private String github_branch;
+    private String github_author;
+
+    public CodeReviewApplication(String githubReviewLogUri) {
+        github_review_log_uri = githubReviewLogUri;
+    }
 
     public static void main(String[] args) throws Exception {
         GitCommand gitCommand = new GitCommand(
@@ -40,7 +44,7 @@ public class CodeReviewApplication {
 
         IAISession aiSession = new ChatGLM(getEnv("CHATGLM_APIHOST"), getEnv("CHATGLM_APIKEYSECRET"));
 
-        String push_host = "http://www.pushplus.plus/send";
+        String push_host = getEnv("PUSHPLUS_HOST");
         IPushExecutor pushExecutor = new PushPlus(push_host, getEnv("PUSHPLUS_TOKEN"));
 
         DefaultCodeReviewService defaultCodeReviewService = new DefaultCodeReviewService(gitCommand, aiSession, pushExecutor);
