@@ -115,7 +115,7 @@ public class GitCommand {
         DateTimeFormatter createTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         String fileCreateTime = beijingTime.format(createTimeFormatter);
         String folder = project + "/" + branch;
-        File currentFolder = new File(rootFolder + folder);
+        File currentFolder = new File(rootFolder + "/" + folder);
         if (!currentFolder.exists()) {
             currentFolder.mkdirs();
         }
