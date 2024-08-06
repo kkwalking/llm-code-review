@@ -126,8 +126,8 @@ public class GitCommand {
         }
 
         // 提交内容
-        git.add().addFilepattern(currentFolder + "/" + fileName).call();
-        git.commit().setMessage("add code review new file" + fileName).call();
+        git.add().addFilepattern(folder + "/" + fileName).call();
+        git.commit().setMessage("add new code review file:" + folder + "/" + fileName).call();
         git.push().setCredentialsProvider(new UsernamePasswordCredentialsProvider(githubToken, "")).call();
 
         logger.info("llm-code-review git commit and push done! {}", fileName);
