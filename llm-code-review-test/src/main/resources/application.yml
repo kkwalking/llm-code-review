@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: llm-code-review-test-app
+  profiles:
+    active: dev

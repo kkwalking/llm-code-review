@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>llm-code-review-core</module>
+        <module>llm-code-review-test</module>
     </modules>
 
     <properties>

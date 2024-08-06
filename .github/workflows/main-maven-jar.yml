@@ -63,7 +63,7 @@ jobs:
           COMMIT_BRANCH: ${{ env.BRANCH_NAME }}
           COMMIT_AUTHOR: ${{ env.COMMIT_AUTHOR }}
           COMMIT_MESSAGE: ${{ env.COMMIT_MESSAGE }}
-          # pushplus 配置 「https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&t=sandbox/index」
+          # pushplus 配置
           PUSHPLUS_HOST: ${{ secrets.PUSHPLUS_HOST }}
           PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
           # ChatGLM 配置「https://open.bigmodel.cn/api/paas/v4/chat/completions」、「https://open.bigmodel.cn/usercenter/apikeys」
