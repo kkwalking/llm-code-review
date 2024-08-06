@@ -79,7 +79,7 @@ public class DefaultCodeReviewService extends AbstractCodeReviewService{
         pushMap.put(TemplateKey.BRANCH_NAME.getDesc(), gitCommand.getBranch());
         pushMap.put(TemplateKey.COMMIT_AUTHOR.getDesc(), gitCommand.getAuthor());
         pushMap.put(TemplateKey.COMMIT_MESSAGE.getDesc(), gitCommand.getCommitMessage());
-        pushMap.put(TemplateKey.REVIEW_CONTENT.getDesc(), gitCommand.getGithubReviewLogUri());
+        pushMap.put(TemplateKey.REVIEW_CONTENT.getDesc(), reviewRepoUrl);
         pushExecutor.send(JSON.toJSONString(pushMap), IPushExecutor.PushTemplate.JSON);
     }
 }

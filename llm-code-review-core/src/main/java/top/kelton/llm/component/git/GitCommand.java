@@ -9,6 +9,9 @@ import top.kelton.llm.utils.RandomStringUtils;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class GitCommand {
@@ -100,34 +103,35 @@ public class GitCommand {
     }
 
     public String commitAndPush(String recommend) throws Exception {
+        String rootFolder = "repo";
         Git git = Git.cloneRepository()
                 .setURI(githubReviewLogUri + ".git")
-                .setDirectory(new File("repo"))
+                .setDirectory(new File(rootFolder))
                 .setCredentialsProvider(new UsernamePasswordCredentialsProvider(githubToken, ""))
                 .call();
 
-
-        Date now = new Date();
-        // 创建分支
-        String dateFolderName = new SimpleDateFormat("yyyy-MM-dd").format(now);
-        File dateFolder = new File("repo/" + dateFolderName);
-        if (!dateFolder.exists()) {
-            dateFolder.mkdirs();
+        ZoneId beijingZoneId = ZoneId.of("Asia/Shanghai");
+        ZonedDateTime beijingTime = ZonedDateTime.now(beijingZoneId);
+        DateTimeFormatter createTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        String fileCreateTime = beijingTime.format(createTimeFormatter);
+        String folder = project + "/" + branch;
+        File currentFolder = new File(rootFolder + folder);
+        if (!currentFolder.exists()) {
+            currentFolder.mkdirs();
         }
-        String createTime = new SimpleDateFormat("HHmmssSSS").format(now);
-        String fileName = project + "-" + branch + "-" + author +"-" + createTime + "-" + ".md";
-        File newFile = new File(dateFolder, fileName);
+        String fileName = author + "-" + fileCreateTime + ".md";
+        File newFile = new File(currentFolder, fileName);
         try (FileWriter writer = new FileWriter(newFile)) {
             writer.write(recommend);
         }
 
         // 提交内容
-        git.add().addFilepattern(dateFolderName + "/" + fileName).call();
+        git.add().addFilepattern(currentFolder + "/" + fileName).call();
         git.commit().setMessage("add code review new file" + fileName).call();
         git.push().setCredentialsProvider(new UsernamePasswordCredentialsProvider(githubToken, "")).call();
 
         logger.info("llm-code-review git commit and push done! {}", fileName);
 
-        return githubReviewLogUri + "/blob/master/" + dateFolderName + "/" + fileName;
+        return githubReviewLogUri + "/blob/master/" + folder + "/" + fileName;
     }
 }
