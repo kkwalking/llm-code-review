@@ -147,6 +147,7 @@
                             <include>com.fasterxml.jackson.core:jackson-databind:</include>
                             <include>com.fasterxml.jackson.core:jackson-annotations:</include>
                             <include>org.eclipse.jgit:org.eclipse.jgit:</include>
+                            <include>commons-lang:commons-lang:jar:</include>
                         </includes>
                     </artifactSet>
                 </configuration>
